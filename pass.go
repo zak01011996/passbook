@@ -74,9 +74,7 @@ func (p *Pass) MarshalJSON() ([]byte, error) {
 	if len(p.AuthenticationToken) < 16 {
 		return nil, errors.New("The Authentication Token must be 16 characters or longer")
 	}
-	if p.WebServiceURL != "" && !strings.HasPrefix(p.WebServiceURL, "https://") {
-		return nil, errors.New("The Web Service URL must use the HTTPS protocol")
-	}
+
 	return json.Marshal(*p)
 }
 
