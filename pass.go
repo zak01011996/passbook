@@ -1,6 +1,7 @@
 package passbook
 
 import (
+	"database/sql/driver"
 	"encoding/json"
 	"errors"
 	"strings"
