@@ -14,6 +14,6 @@ func (t *W3Time) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t W3Time) MarshalJSON() ([]byte, error) {
-	return []byte(time.Time(t).UTC().Format("2006-01-02T15:04-07:00")), nil
+func (t *W3Time) MarshalJSON() ([]byte, error) {
+	return []byte(time.Time(*t).UTC().Format("2006-01-02T15:04-07:00")), nil
 }

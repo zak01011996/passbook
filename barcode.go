@@ -13,10 +13,11 @@ type Barcode struct {
 	AltText         string        `json:"altText,omitempty"` // Text displayed near the barcode. For example, a human-readable version of the barcode data in case the barcode doesn’t scan.
 }
 
-func (b Barcode) MarshalJSON() ([]byte, error) {
-	if b.Format != PKBarcodeFormatQR ||
-		b.Format != PKBarcodeFormatPDF417 ||
+func (b *Barcode) MarshalJSON() ([]byte, error) {
+	if b.Format != PKBarcodeFormatQR &&
+		b.Format != PKBarcodeFormatPDF417 &&
 		b.Format != PKBarcodeFormatAztec {
+
 		return nil, errors.New("Barcode format must be one of the following values: " +
 			"PKBarcodeFormatQR, PKBarcodeFormatPDF417, PKBarcodeFormatAztec")
 	}
@@ -26,5 +27,5 @@ func (b Barcode) MarshalJSON() ([]byte, error) {
 	if b.MessageEncoding == "" {
 		b.MessageEncoding = "iso-8859-1"
 	}
-	return json.Marshal(b)
+	return json.Marshal(*b)
 }

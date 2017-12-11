@@ -6,8 +6,8 @@ type BarcodeFormat string
 // Supported Barcode formats.
 const (
 	PKBarcodeFormatQR     BarcodeFormat = "PKBarcodeFormatQR"
-	PKBarcodeFormatPDF417               = "PKBarcodeFormatPDF417"
-	PKBarcodeFormatAztec                = "PKBarcodeFormatAztec"
+	PKBarcodeFormatPDF417 BarcodeFormat = "PKBarcodeFormatPDF417"
+	PKBarcodeFormatAztec  BarcodeFormat = "PKBarcodeFormatAztec"
 )
 
 type DataDetector string

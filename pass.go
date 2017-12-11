@@ -77,7 +77,7 @@ func (p *Pass) MarshalJSON() ([]byte, error) {
 	if p.WebServiceURL != "" && !strings.HasPrefix(p.WebServiceURL, "https://") {
 		return nil, errors.New("The Web Service URL must use the HTTPS protocol")
 	}
-	return json.Marshal(p)
+	return json.Marshal(*p)
 }
 
 // Handle custom value SQL
