@@ -48,7 +48,7 @@ type Pass struct {
 	WebServiceURL       string `json:"webServiceURL,omitempty"`       // The URL of a web service that conforms to the API described in Passbook Web Service Reference.
 }
 
-func (p Pass) MarshalJSON() ([]byte, error) {
+func (p *Pass) MarshalJSON() ([]byte, error) {
 	if p.Description == "" {
 		return nil, errors.New("Empty Description")
 	}
@@ -77,4 +77,25 @@ func (p Pass) MarshalJSON() ([]byte, error) {
 		return nil, errors.New("The Web Service URL must use the HTTPS protocol")
 	}
 	return json.Marshal(p)
+}
+
+// Handle custom value SQL
+func (pass *Pass) Value() (driver.Value, error) {
+	res, err := json.Marshal(pass)
+	return string(res), err
+}
+
+// Handle custom value SQL
+func (pass *Pass) Scan(src interface{}) error {
+	var source []byte
+	switch src.(type) {
+	case string:
+		source = []byte(src.(string))
+	case []byte:
+		source = src.([]byte)
+	default:
+		return errors.New("Incompatible type for Passbook")
+	}
+
+	return json.Unmarshal(source, pass)
 }
